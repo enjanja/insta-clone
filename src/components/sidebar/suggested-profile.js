@@ -27,28 +27,32 @@ export default function SuggestedProfile({
   }
 
   return !followed ? (
-    <div className="flex flex-col items-center align-items justify-between">
-      <div className="flex items-center justify-between ">
+    <div className="suggestion-card rounded bg-white border-gray-primary flex flex-col items-center align-items justify-between mx-1">
+      <Link to={`/p/${username}`}>
+      <div className="flex flex-col items-center justify-between mb-3">
         <img
-          className="rounded-full w-8 flex mr-3"
+          className="rounded-full w-16 flex"
           src={`/images/avatars/${username}.jpg`}
           alt=""
           onError={(e) => {
             e.target.src = `/images/avatars/default.png`
           }}
         />
-        <button
+        <p className="font-bold text-sm mt-2">{username}</p>
+      </div>
+
+      
+        
+      </Link>
+
+      <button
           className="text-xs font-bold text-blue-medium"
           type="button"
           onClick={handleFollowUser}
         >
           Follow
         </button>
-      </div>
-
-      <Link to={`/p/${username}`}>
-        <p className="font-bold text-sm">{username}</p>
-      </Link>
+      
     </div>
   ) : null
 }
