@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.instagram",
+  "appName": "instagram",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
