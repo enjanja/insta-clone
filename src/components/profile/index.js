@@ -13,7 +13,6 @@ export default function Profile({ user }) {
   }
 
   const [{ profile, photosCollection, followerCount }, dispatch] = useReducer(reducer, initialState)
-
   useEffect(() => {
     async function getProfileInfoAndPhotos() {
       const photos = await getUserPhotosByUserId(user.userId)

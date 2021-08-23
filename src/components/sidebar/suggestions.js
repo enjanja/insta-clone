@@ -1,11 +1,14 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-nested-ternary */
+/* eslint-disable prettier/prettier */
+
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Skeleton from 'react-loading-skeleton'
+import Carousel from 'react-multi-carousel'
 import { getSuggestedProfiles } from '../../services/firebase'
 import SuggestedProfile from './suggested-profile'
-import Carousel from 'react-multi-carousel'
-
 
 export default function Suggestions({ userId, following, loggedInUserDocId }) {
   const [profiles, setProfiles] = useState(null)
@@ -14,19 +17,19 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      slidesToSlide: 3, // optional, default to 1.
+      slidesToSlide: 3 // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 3,
-      slidesToSlide: 2, // optional, default to 1.
+      slidesToSlide: 2 // optional, default to 1.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 2,
+      items: 3,
       slidesToSlide: 1, // optional, default to 1.
       paritialVisibilityGutter: 30
-    },
+    }
   }
 
   useEffect(() => {
@@ -55,16 +58,16 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
       <div className="mt-4 grid">
         {/* ovde bi msm trebalo da se stavi slajder, da obuhvati ovaj profiles.map */}
         <Carousel
-          swipeable={true}
-          draggable={true}
+          swipeable
+          draggable
           showDots={false}
           responsive={responsive}
           ssr={false}
-          deviceType={'mobile'}
+          deviceType="mobile"
           infinite={false}
-          keyBoardControl={true}
-          removeArrowOnDeviceType={["mobile"]}
-          deviceType={'mobile'}
+          keyBoardControl
+          removeArrowOnDeviceType={['mobile']}
+          deviceType="mobile"
           containerClass="carousel-container"
           itemClass="carousel-item-padding-40-px"
         >
@@ -91,5 +94,5 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
 Suggestions.propTypes = {
   userId: PropTypes.string,
   following: PropTypes.array,
-  loggedInUserDocId: PropTypes.string,
+  loggedInUserDocId: PropTypes.string
 }

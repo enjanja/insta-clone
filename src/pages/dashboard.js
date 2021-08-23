@@ -5,6 +5,7 @@ import Timeline from '../components/timeline'
 import Sidebar from '../components/sidebar'
 import useUser from '../hooks/use-user'
 import LoggedInUserContext from '../context/logged-in-user'
+import Footer from '../components/footer'
 
 export default function Dashboard({ user: loggedInUser }) {
   const { user, setActiveUser } = useUser(loggedInUser.uid)
@@ -22,6 +23,7 @@ export default function Dashboard({ user: loggedInUser }) {
         <div className="grid gap-4 mx-auto max-w-screen-lg">
           <Timeline />
         </div>
+        <Footer />
       </div>
     </LoggedInUserContext.Provider>
   )

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { firebase, FieldValue } from '../lib/firebase'
 
 export async function doesUsernameExist(username) {
@@ -25,13 +26,35 @@ export async function getUserByUsername(username) {
 
 // get user from the firestore where userId === userId (passed from the auth)
 export async function getUserByUserId(userId) {
-  const result = await firebase.firestore().collection('users').where('userId', '==', userId).get()
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('userId', '==', userId)
+    .get()
   const user = result.docs.map((item) => ({
     ...item.data(),
     docId: item.id
   }))
 
   return user
+}
+
+export async function getFollowedUsersById(followedUsersIds) {
+  // console.log(followedUsersIds)
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('userId', 'in', followedUsersIds)
+    .get()
+
+  // console.log(result)
+  
+  const profiles = result.docs.map((user) => ({
+    ...user.data(),
+    docId: user.id
+  }))
+  // console.log(profiles)
+  return profiles
 }
 
 // check all conditions before limit results
@@ -51,6 +74,23 @@ export async function getSuggestedProfiles(userId, following) {
   }))
 
   return profiles
+}
+
+// search users by username
+export async function searchUsersByUsername(username) {
+  // console.log(username)
+  // const searchQuery = username.toLowerCase()
+
+  const result = firebase
+    .firestore()
+    .collection('users')
+    .where('username', '==', username)
+    .get()
+
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id
+  }))
 }
 
 export async function updateLoggedInUserFollowing(
@@ -98,7 +138,7 @@ export async function getPhotos(userId, following) {
     docId: photo.id
   }))
 
-  console.log(userFollowedPhotos)
+  // console.log(userFollowedPhotos)
 
   const photosWithUserDetails = await Promise.all(
     userFollowedPhotos.map(async (photo) => {
@@ -118,7 +158,11 @@ export async function getPhotos(userId, following) {
 }
 
 export async function getUserPhotosByUserIdForUser(userId, user) {
-  const result = await firebase.firestore().collection('photos').where('userId', '==', userId).get()
+  const result = await firebase
+    .firestore()
+    .collection('photos')
+    .where('userId', '==', userId)
+    .get()
 
   const photos = result.docs.map((photo) => ({
     ...photo.data(),
@@ -129,7 +173,7 @@ export async function getUserPhotosByUserIdForUser(userId, user) {
   const photosWithUserDetails = await Promise.all(
     photos.map(async (photo) => {
       let userLikedPhoto = false
-      console.log(photo.likes)
+      // console.log(photo.likes)
       if (photo.likes.includes(userT)) {
         console.log('1')
         userLikedPhoto = true
@@ -138,7 +182,7 @@ export async function getUserPhotosByUserIdForUser(userId, user) {
       const user = await getUserByUserId(photo.userId)
       // raphael
       const { username } = user[0]
-      console.log(userLikedPhoto)
+      // console.log(userLikedPhoto)
       return { username, ...photo, userLikedPhoto }
     })
   )
@@ -147,7 +191,11 @@ export async function getUserPhotosByUserIdForUser(userId, user) {
 }
 
 export async function getUserPhotosByUserId(userId) {
-  const result = await firebase.firestore().collection('photos').where('userId', '==', userId).get()
+  const result = await firebase
+    .firestore()
+    .collection('photos')
+    .where('userId', '==', userId)
+    .get()
 
   const photos = result.docs.map((photo) => ({
     ...photo.data(),
