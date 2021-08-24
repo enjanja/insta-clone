@@ -1,146 +1,143 @@
 /* eslint-disable prettier/prettier */
-// /* eslint-disable prettier/prettier */
-// import { useState, useContext, useEffect } from 'react'
-// import {  useHistory } from 'react-router-dom'
-// // import PropTypes from 'prop-types'
-// import FirebaseContext from '../context/firebase'
-// import * as ROUTES from '../constants/routes'
-// import { doesUsernameExist } from '../services/firebase'
-// import UserContext from '../context/user'
-// import Header from '../components/header'
-// import Footer from '../components/footer'
-// // import useUser from '../hooks/use-user'
-// import LoggedInUserContext from '../context/logged-in-user'
-// // import {
-// //   updateLoggedInUserFollowing,
-// //   updateFollowedUserFollowers,
-// //   getUserByUserId
-// // } from '../../services/firebase'
+/* eslint-disable prettier/prettier */
+import { useState, useContext, useEffect } from 'react'
+import {  useHistory } from 'react-router-dom'
+// import PropTypes from 'prop-types'
+import FirebaseContext from '../context/firebase'
+import * as ROUTES from '../constants/routes'
+import useUser from '../hooks/use-user'
+import {
+    // getUserByUserId,
+    doesUsernameExist
+  } from '../services/firebase'
+import UserContext from '../context/user'
+import Header from '../components/edit-profile/header'
 
-// export default function UpdateProfile() {
-//   const history = useHistory()
-//   const { firebase } = useContext(FirebaseContext)
+export default function UpdateProfile() {
+  const history = useHistory()
+  const { firebase } = useContext(FirebaseContext)
 
-//   const { user: loggedInUser } = useContext(UserContext)
-//   // const { user: { docId = '', fullName, username, userId, emailAddress, password } = {} } = useContext(LoggedInUserContext)
+  const { user: loggedInUser } = useContext(UserContext)
+  const { user } = useUser(loggedInUser?.uid)
 
-//   const [usernameUpdate, setUsername] = useState('')
-//   const [fullNameUpdate, setFullName] = useState('')
-//   const [emailAddressUpdate, setEmailAddress] = useState('')
-//   const [passwordUpdate, setPassword] = useState('')
+  let usernameSub
+  let fulldNameSub
+  let emailAddressSub
 
-//   const [error, setError] = useState('')
-//   const isInvalid = emailAddressUpdate === '' && usernameUpdate === '' && fullNameUpdate === '' && passwordUpdate === ''
+  const [usernameField, setUsernameField] = useState('')
+  const [fullNameField, setFullNameField] = useState('')
+  const [emailAddressField, setEmailAddressField] = useState('')
 
-//   const handleUpdate = async (event) => {
-//     event.preventDefault()
+  const [error, setError] = useState('')
+  const isInvalid = usernameField === '' && fullNameField === '' && emailAddressField === '' 
 
-//     const usernameExists = await doesUsernameExist(usernameUpdate)
+  
+  const handleUpdate = async (event) => {
+    event.preventDefault()
 
-//     if (!usernameExists) {
-//       try {
+    const usernameExists = await doesUsernameExist(usernameField)
+    
+    if (!usernameExists) {
+      try {
 
-//         if(username === ''){
-//           setUsername(usernameUpdate)
-//         }
-//         if(emailAddress === ''){
-//           setUsername(emailAddressUpdate)
-//         }
-//         if(fullName === ''){
-//           setUsername(fullNameUpdate)
-//         }
-//         if(password === ''){
-//           setUsername(passwordUpdate)
-//         }
+        if(usernameField.length === 0){
+            usernameSub = user.username
+        }else {
+            usernameSub = usernameField
+        }
+        if(fullNameField.length === 0){
+            fulldNameSub = user.fullName
+        }else {
+            fulldNameSub = fullNameField
+        }
+        if(emailAddressField.length === 0){
+            emailAddressSub = user.emailAddress
+        }else {
+            emailAddressSub = emailAddressField
+        }
 
-//         console.log({usernameUpdate, emailAddressUpdate, fullNameUpdate, passwordUpdate})
+        await firebase
+          .firestore()
+          .collection('users')
+          .doc(user.docId)
+          .update({
+            username: usernameSub.toLowerCase(),
+            fullName: fulldNameSub,
+            emailAddress: emailAddressSub.toLowerCase(),
+          })
 
-//         history.push(ROUTES.PROFILE)
-//       } catch (error) {
-//         setUsername(username)
-//         setEmailAddress(emailAddress)
-//         setFullName(fullName)
-//         setPassword(password)
-//         setError(error.message)
-//       }
-//     } else {
-//       setUsername('')
-//       setError('That username is already taken, please try another.')
-//     }
-//   }
+        history.push(`/p/${usernameSub}`)
+      } catch (error) {
+        setUsernameField(user.username)
+        setFullNameField(user.fullName)
+        setEmailAddressField(user.emailAddress)
+        setError(error.message)
+      }
+    } else {
+      setError('That username is already taken, please try another.')
+    }
+  }
 
-//   useEffect(() => {
-//     document.title = 'Update profile - Instagram'
-//   }, [])
+  useEffect(() => {
+    document.title = 'Update profile - Instagram'
+  }, [])
 
-//   return (
-//     <div className="bg-gray-background">
-//      <Header />
-//      {/* { user ? ( */}(
-//         <>
-//         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
+  return (
+    <div className="bg-gray-background">
 
-//             <div className="flex flex-col pl-5 pr-5">
-//                 <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4 rounded">
-//                 <p className="pb-5">Edit user info</p>
-//                 {error && <p className="mb-4 text-xs text-red-primary">{error}</p>}
-//                 <form onSubmit={handleUpdate} method="PUT">
+     { user ? (
+        <>  
+        <Header user={user}/>
+        <div className="container flex mx-auto max-w-screen-md items-center h-screen">
 
-//                     <input
-//                       aria-label="Enter your username"
-//                       type="text"
-//                       placeholder={username}
-//                       className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-//                       onChange={({ target }) => setUsername(target.value)}
-//                       value={username}
-//                     />
-//                     <input
-//                       aria-label="Enter your full name"
-//                       type="text"
-//                       placeholder={fullName}
-//                       className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-//                       onChange={({ target }) => setFullName(target.value)}
-//                       value={fullName}
-//                     />
-//                     <input
-//                       aria-label="Enter your email address"
-//                       type="text"
-//                       placeholder={emailAddress}
-//                       className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-//                       onChange={({ target }) => setEmailAddress(target.value)}
-//                       value={emailAddress}
-//                     />
-//                     <input
-//                     aria-label="Enter your password"
-//                     type="password"
-//                     placeholder={password}
-//                     className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-//                     onChange={({ target }) => setPassword(target.value)}
-//                     value={password}
-//                     />
-//                     <button
-//                     disabled={isInvalid}
-//                     type="submit"
-//                     className={`bg-blue-medium text-white w-full rounded h-8 font-bold
-//                     ${isInvalid && 'opacity-50'}`}
-//                     >
-//                     Update
-//                     </button>
-//                     </form>
-//                 </div>
-//             </div>
-//         </div>
-//         </>
-//           ) : (
-//           <>
-//           <div className="container flex mx-auto max-w-screen-md items-center h-screen">
-//               <p className="flex flex-col pl-5 pr-5">Loading...</p>
-//           </div>
-//           </>
-//           )
+            <div className="flex flex-col pl-5 pr-5">
+                <div className="flex flex-col items-center bg-white p-4 border border-gray-primary rounded mb-14">
+                <p className="pb-5">Edit user info</p>
+                {error && <p className="mb-4 text-xs text-red-primary container flex mx-auto max-w-screen-md">{error}</p>}
+                <form onSubmit={handleUpdate} method="POST">
 
-//     <Footer />
-//     </div>
+                    <input
+                      aria-label="Enter your username"
+                      type="text"
+                      placeholder={user.username}
+                      className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
+                      onChange={({ target }) => setUsernameField(target.value)}
+                      value={usernameField}
+                    />
+                    <input
+                      aria-label="Enter your full name"
+                      type="text"
+                      placeholder={user.fullName}
+                      className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
+                      onChange={({ target }) => setFullNameField(target.value)}
+                      value={fullNameField}
+                    />
+                    <input
+                      aria-label="Enter your email address"
+                      type="text"
+                      placeholder={user.emailAddress}
+                      className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
+                      onChange={({ target }) => setEmailAddressField(target.value)}
+                      value={emailAddressField}
+                    />
+                    <button
+                    disabled={isInvalid}
+                    type="submit"
+                    className={`bg-blue-medium text-white w-full rounded h-8 font-bold
+                    ${isInvalid && 'opacity-50'}`}
+                    >
+                    Update
+                    </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </>
+        ) : (<></>)     
+    }
 
-//   )
-// }
+    </div>
+
+  )
+}
+

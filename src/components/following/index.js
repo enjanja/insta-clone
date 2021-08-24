@@ -37,7 +37,7 @@ export default function Following({ user }) {
 
     <div className="p-4">
       {/* forma za profile */}
-      {console.log(following)}
+      {/* {console.log(following)} */}
       {following.map((followed) => (
         <Link to={`/p/${followed.username}`} key={followed.docId}>
             <div className="flex items-center px-5 py-2">
