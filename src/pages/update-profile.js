@@ -20,6 +20,10 @@ export default function UpdateProfile() {
   const { user: loggedInUser } = useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid)
 
+  let usernameSub
+  let fulldNameSub
+  let emailAddressSub
+
   const [usernameField, setUsernameField] = useState('')
   const [fullNameField, setFullNameField] = useState('')
   const [emailAddressField, setEmailAddressField] = useState('')
@@ -35,10 +39,6 @@ export default function UpdateProfile() {
     
     if (!usernameExists) {
       try {
-
-          let usernameSub
-          let fulldNameSub
-          let emailAddressSub
 
         if(usernameField.length === 0){
             usernameSub = user.username
@@ -66,7 +66,7 @@ export default function UpdateProfile() {
             emailAddress: emailAddressSub.toLowerCase(),
           })
 
-        history.push(ROUTES.UPDATE_PROFILE)
+        history.push(`/p/${usernameSub}`)
       } catch (error) {
         setUsernameField(user.username)
         setFullNameField(user.fullName)
@@ -84,9 +84,10 @@ export default function UpdateProfile() {
 
   return (
     <div className="bg-gray-background">
-     <Header />
+
      { user ? (
-        <>
+        <>  
+        <Header user={user}/>
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
 
             <div className="flex flex-col pl-5 pr-5">

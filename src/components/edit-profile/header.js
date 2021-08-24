@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
-// import { useContext } from 'react'
+import { useContext } from 'react'
 import {  useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 // import FirebaseContext from '../../context/firebase'
-// import UserContext from '../../context/user'
-// import useUser from '../hooks/use-user'
+import UserContext from '../../context/user'
+import useUser from '../../hooks/use-user'
 import * as ROUTES from '../../constants/routes'
 
-export default function Header() {
-//   const { user: loggedInUser } = useContext(UserContext)
+export default function Header({user}) {
+  // const { user: loggedInUser } = useContext(UserContext)
   // const { user } = useUser(loggedInUser?.uid)
 //   const { firebase } = useContext(FirebaseContext)
   const history = useHistory()
@@ -17,17 +18,18 @@ export default function Header() {
       <div className="container mx-auto max-w-screen-lg h-full">
         <div className="flex justify-between h-full">
           <div className="text-gray-700 text-center flex items-center align-items cursor-pointer ml-3">
+                {  console.log(user.username)}
                 <button
                   type="button"
                   title="back"
                   onClick={() => {
-                    history.goBack()
-                    history.push(ROUTES.PROFILE)
+                    history.push(`/p/${user.username}`)
                     // history.goBack()
                   }}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter') {
-                      history.goBack()
+                      history.push(`/p/${user.username}`)
+                      // history.goBack()
                     }
                   }}
                 >
@@ -49,4 +51,8 @@ export default function Header() {
       </div>
     </header>
   )
+}
+
+Header.propTypes = {
+  user: PropTypes.object
 }
