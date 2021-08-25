@@ -26,6 +26,7 @@ export default function Upload({ user: loggedInUser }) {
     const uid = uuidv4()
     const ref = storage.ref(`/images/${uid}`)
 
+    console.log(ref)
     const uploadTask = ref.put(file)
 
     uploadTask.on(
@@ -39,6 +40,7 @@ export default function Upload({ user: loggedInUser }) {
           firebase.firestore().collection('photos').add({
             caption,
             imageSrc: url,
+            imgPath: ref.fullPath,
             userId: user.userId,
             dateCreated: Date.now(),
             comments: [],

@@ -28,6 +28,7 @@ export default function Post({ content }) {
           handleFocus={handleFocus}
           username={content.username}
           imageSrc={content.imageSrc}
+          imgPath={content.imgPath}
         />
         <Footer caption={content.caption} username={content.username} />
         <Comments
@@ -45,6 +46,7 @@ Post.propTypes = {
   content: PropTypes.shape({
     username: PropTypes.string.isRequired,
     imageSrc: PropTypes.string.isRequired,
+    imgPath:PropTypes.string.isRequired,
     caption: PropTypes.string.isRequired,
     docId: PropTypes.string.isRequired,
     userLikedPhoto: PropTypes.bool.isRequired,

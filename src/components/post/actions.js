@@ -6,10 +6,14 @@ import { storage } from '../../lib/firebase'
 import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
 import useUser from '../../hooks/use-user'
+import {  useHistory } from 'react-router-dom'
 
-export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, username, imageSrc }) {
+
+export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, username, imageSrc, imgPath }) {
   const { user: loggedInUser } = useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid)
+  const history = useHistory()
+
 
   // const history = useHistory()
 
@@ -37,13 +41,10 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, us
 
   function handleDelete(e) {
     e.preventDefault()
-    
-    const ref = storage.ref(`images/${imageSrc}`)
-    
-    // console.log(ref)
-    // const imageRef = ref.getDownloadURL()
-    // console.log(imageRef)
-
+        
+    console.log(imageSrc)
+    const ref = storage.refFromURL(imageSrc)
+    console.log(ref)
 
     ref.delete().then(()=>{
       console.log('deleted storage image')
@@ -59,10 +60,14 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, us
         .catch((e) => {
           console.log('Post error: ', e)
         })
+
     })
     .catch((e) => {
       console.log('Storage error: ', e)
     })
+
+    history.push(`/p/${username}`)
+
 
     
   }
@@ -153,11 +158,4 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, us
   )
 }
 
-Actions.propTypes = {
-  docId: PropTypes.string.isRequired,
-  totalLikes: PropTypes.number.isRequired,
-  likedPhoto: PropTypes.bool.isRequired,
-  handleFocus: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  imageSrc: PropTypes.string.isRequired,
-}
+
