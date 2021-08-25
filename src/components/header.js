@@ -4,11 +4,9 @@ import { Link, useHistory } from 'react-router-dom'
 import FirebaseContext from '../context/firebase'
 import UserContext from '../context/user'
 import * as ROUTES from '../constants/routes'
-// import useUser from '../hooks/use-user'
 
 export default function Header() {
   const { user: loggedInUser } = useContext(UserContext)
-  // const { user } = useUser(loggedInUser?.uid)
   const { firebase } = useContext(FirebaseContext)
   const history = useHistory()
 

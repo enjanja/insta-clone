@@ -46,14 +46,12 @@ export async function getFollowedUsersById(followedUsersIds) {
     .collection('users')
     .where('userId', 'in', followedUsersIds)
     .get()
-
-  // console.log(result)
   
   const profiles = result.docs.map((user) => ({
     ...user.data(),
     docId: user.id
   }))
-  // console.log(profiles)
+  
   return profiles
 }
 
@@ -78,9 +76,7 @@ export async function getSuggestedProfiles(userId, following) {
 
 // search users by username
 export async function searchUsersByUsername(username) {
-  // console.log(username)
-  // const searchQuery = username.toLowerCase()
-
+  
   const result = firebase
     .firestore()
     .collection('users')
@@ -138,8 +134,6 @@ export async function getPhotos(userId, following) {
     docId: photo.id
   }))
 
-  // console.log(userFollowedPhotos)
-
   const photosWithUserDetails = await Promise.all(
     userFollowedPhotos.map(async (photo) => {
       let userLikedPhoto = false
@@ -162,6 +156,7 @@ export async function getUserPhotosByUserIdForUser(userId, user) {
     .firestore()
     .collection('photos')
     .where('userId', '==', userId)
+    .orderBy('dateCreated','desc')
     .get()
 
   const photos = result.docs.map((photo) => ({
@@ -173,9 +168,7 @@ export async function getUserPhotosByUserIdForUser(userId, user) {
   const photosWithUserDetails = await Promise.all(
     photos.map(async (photo) => {
       let userLikedPhoto = false
-      // console.log(photo.likes)
       if (photo.likes.includes(userT)) {
-        console.log('1')
         userLikedPhoto = true
       }
       // photo.userId = 2
@@ -195,6 +188,7 @@ export async function getUserPhotosByUserId(userId) {
     .firestore()
     .collection('photos')
     .where('userId', '==', userId)
+    .orderBy('dateCreated', 'desc')
     .get()
 
   const photos = result.docs.map((photo) => ({

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+/* eslint-disable prettier/prettier */
+import { useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Header from '../components/header'
 import Timeline from '../components/timeline'
@@ -6,7 +7,6 @@ import Sidebar from '../components/sidebar'
 import useUser from '../hooks/use-user'
 import LoggedInUserContext from '../context/logged-in-user'
 import Footer from '../components/footer'
-import {storage} from '../lib/firebase'
 
 export default function Dashboard({ user: loggedInUser }) {
   const { user, setActiveUser } = useUser(loggedInUser.uid)
@@ -25,7 +25,9 @@ export default function Dashboard({ user: loggedInUser }) {
           <Sidebar />
         </div>
         <div className="grid gap-4 mx-auto max-w-screen-lg">
-          <Timeline />
+          {/* {console.log(user.username)} */}
+          {user? (<><Timeline username={user.username}/></>):(<></>)}
+          
         </div>
         <Footer />
       </div>

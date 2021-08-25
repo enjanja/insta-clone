@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react'
+/* eslint-disable prettier/prettier */
+import {  useState } from 'react'
 import PropTypes from 'prop-types'
-import Header from '../components/header'
+import {  useHistory } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import useUser from '../hooks/use-user'
 import LoggedInUserContext from '../context/logged-in-user'
 import { storage, firebase } from '../lib/firebase'
 import Footer from '../components/footer'
-import {  useHistory } from 'react-router-dom'
+import Header from '../components/header'
 
 
 export default function Upload({ user: loggedInUser }) {
@@ -22,7 +23,7 @@ export default function Upload({ user: loggedInUser }) {
 
   function handleUpload(e) {
     e.preventDefault()
-    let uid = uuidv4()
+    const uid = uuidv4()
     const ref = storage.ref(`/images/${uid}`)
 
     const uploadTask = ref.put(file)
@@ -36,7 +37,7 @@ export default function Upload({ user: loggedInUser }) {
           setFile(null)
           setURL(url)
           firebase.firestore().collection('photos').add({
-            caption: caption,
+            caption,
             imageSrc: url,
             userId: user.userId,
             dateCreated: Date.now(),
@@ -52,7 +53,7 @@ export default function Upload({ user: loggedInUser }) {
     <LoggedInUserContext.Provider value={{ user, setActiveUser }}>
       <div className="bg-gray-background">
         <Header />
-        <div>
+        <div className="p-5">
           <form onSubmit={handleUpload}>
             
             <label className="photo-input" htmlFor="upload-photo">{ file?'Ready to upload!':'+ Select photo '}</label>
@@ -66,6 +67,7 @@ export default function Upload({ user: loggedInUser }) {
               value={caption}
             />
             <button
+              type="submit"
               className="follow-btn bg-blue-medium font-bold text-sm rounded text-white w-20 h-8 mr-4"
               disabled={!file}
             >
@@ -80,4 +82,6 @@ export default function Upload({ user: loggedInUser }) {
   )
 }
 
-
+Upload.propTypes = {
+  user: PropTypes.object
+}

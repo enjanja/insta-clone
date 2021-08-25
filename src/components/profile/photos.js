@@ -1,23 +1,22 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-nested-ternary */
 import PropTypes from 'prop-types'
 import Skeleton from 'react-loading-skeleton'
 import { Link } from 'react-router-dom'
 // import * as ROUTES from '../../constants/routes'
 
-export default function Photos({ photos }) {
-  // if (photos) {
-  //   console.log(photos)
-  // }
+export default function Photos({ photos }) { 
+  
   return (
-    <div className="h-16 border-t border-gray-primary">
+    <div className="border-t border-gray-primary">
       <div className="grid grid-cols-3 gap-0 mb-12">
         {!photos
           ? new Array(12).fill(0).map((_, i) => <Skeleton key={i} width={320} height={400} />)
           : photos.length > 0
           ? photos.map((photo) => (
-              <div key={photo.docId} className="relative group ">
+              <div key={photo.docId} className="relative group gallery-container">
                 <Link to={`/${photo.userId}/${photo.docId}`} aria-label="photo">
-                  <img src={photo.imageSrc} alt={photo.caption} />
+                  <img className="gallery-image" src={photo.imageSrc} alt={photo.caption} />
 
                   <div className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full justify-evenly items-center h-full bg-black-faded group-hover:flex hidden">
                     <p className="flex items-center text-white font-bold">

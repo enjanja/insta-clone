@@ -8,7 +8,7 @@ import {
     doesUsernameExist
   } from '../services/firebase'
 import UserContext from '../context/user'
-import Header from '../components/edit-profile/header'
+import Header from '../components/header-back-to-profile'
 
 export default function UpdateProfile() {
   const history = useHistory()
@@ -84,7 +84,7 @@ export default function UpdateProfile() {
 
      { user ? (
         <>  
-        <Header user={user}/>
+        <Header />
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
 
             <div className="flex flex-col pl-5 pr-5">

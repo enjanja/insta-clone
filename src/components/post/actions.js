@@ -1,12 +1,22 @@
+/* eslint-disable prettier/prettier */
 import { useState, useContext } from 'react'
+// import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { storage } from '../../lib/firebase'
 import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
+import useUser from '../../hooks/use-user'
 
-export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) {
+export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, username, imageSrc }) {
+  const { user: loggedInUser } = useContext(UserContext)
+  const { user } = useUser(loggedInUser?.uid)
+
+  // const history = useHistory()
+
   const {
     user: { uid: userId }
   } = useContext(UserContext)
+
   const [toggleLiked, setToggleLiked] = useState(likedPhoto)
   const [likes, setLikes] = useState(totalLikes)
   const { firebase, FieldValue } = useContext(FirebaseContext)
@@ -23,6 +33,38 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) 
       })
 
     setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1))
+  }
+
+  function handleDelete(e) {
+    e.preventDefault()
+    
+    const ref = storage.ref(`images/${imageSrc}`)
+    
+    // console.log(ref)
+    // const imageRef = ref.getDownloadURL()
+    // console.log(imageRef)
+
+
+    ref.delete().then(()=>{
+      console.log('deleted storage image')
+
+      firebase
+        .firestore()
+        .collection('photos')
+        .doc(docId)
+        .delete()
+        .then(()=>{
+          console.log('deleted post')
+        })
+        .catch((e) => {
+          console.log('Post error: ', e)
+        })
+    })
+    .catch((e) => {
+      console.log('Storage error: ', e)
+    })
+
+    
   }
 
   return (
@@ -74,6 +116,35 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) 
             />
           </svg>
         </div>
+        {/* delete */}
+        { user && user.username === username? ( 
+          <>
+          <div>
+            <svg
+              onClick={handleDelete}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  handleDelete()
+                }
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-8 text-black-light select-none cursor-pointer focus:outline-none"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+          </div>
+          </>
+         ) : (<></>)
+        } 
+        
       </div>
       <div className="p-4 py-0">
         <p className="font-bold">{likes === 1 ? `${likes} like` : `${likes} likes`}</p>
@@ -86,5 +157,7 @@ Actions.propTypes = {
   docId: PropTypes.string.isRequired,
   totalLikes: PropTypes.number.isRequired,
   likedPhoto: PropTypes.bool.isRequired,
-  handleFocus: PropTypes.func.isRequired
+  handleFocus: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string.isRequired,
 }

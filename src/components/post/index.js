@@ -14,22 +14,29 @@ export default function Post({ content }) {
   // components
   // -> header, image, actions (like & comment icons), footer, comments
   return (
-    <div className="rounded col-span-4 border bg-white border-gray-primary mb-6">
-      <Header username={content.username} />
-      <Image src={content.imageSrc} caption={content.caption} />
-      <Actions
-        docId={content.docId}
-        totalLikes={content.likes.length}
-        likedPhoto={content.userLikedPhoto}
-        handleFocus={handleFocus}
-      />
-      <Footer caption={content.caption} username={content.username} />
-      <Comments
-        docId={content.docId}
-        comments={content.comments}
-        posted={content.dateCreated}
-        commentInput={commentInput}
-      />
+    <div className="post-parent flex items-center justify-center mb-6">
+      <div className=" post-container rounded border bg-white border-gray-primary mb-6 ">
+        <Header username={content.username} />
+        <div className="post-image-container">
+          <Image src={content.imageSrc} caption={content.caption} />
+        </div>
+        
+        <Actions
+          docId={content.docId}
+          totalLikes={content.likes.length}
+          likedPhoto={content.userLikedPhoto}
+          handleFocus={handleFocus}
+          username={content.username}
+          imageSrc={content.imageSrc}
+        />
+        <Footer caption={content.caption} username={content.username} />
+        <Comments
+          docId={content.docId}
+          comments={content.comments}
+          posted={content.dateCreated}
+          commentInput={commentInput}
+        />
+      </div>
     </div>
   )
 }
