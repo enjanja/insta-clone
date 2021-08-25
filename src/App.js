@@ -16,6 +16,8 @@ const NotFound = lazy(() => import('./pages/not-found'))
 const SinglePost = lazy(() => import('./pages/single-post'))
 const Search = lazy(() => import('./pages/search'))
 const Following = lazy(() => import('./pages/following'))
+const PostUpload = lazy(() => import('./pages/post-upload'))
+
 
 export default function App() {
   const { user } = useAuthListener()
@@ -40,6 +42,9 @@ export default function App() {
             </ProtectedRoute> */}
             <Route path={ROUTES.SEARCH} component={Search} />
             <Route path={ROUTES.FOLLOWING} component={Following} />
+            <ProtectedRoute user={user} path={ROUTES.POST_UPLOAD} exact>
+              <PostUpload />
+            </ProtectedRoute>
             <Route component={NotFound} />
           </Switch>
         </Suspense>

@@ -1,4 +1,5 @@
 import Firebase from 'firebase/app'
+import 'firebase/storage'
 import 'firebase/firestore'
 import 'firebase/auth'
 
@@ -14,5 +15,6 @@ const config = {
 
 const firebase = Firebase.initializeApp(config)
 const { FieldValue } = Firebase.firestore
+const storage = Firebase.storage()
 
-export { firebase, FieldValue }
+export { firebase, FieldValue, storage }
