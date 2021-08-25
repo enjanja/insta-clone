@@ -2,12 +2,9 @@
 /* eslint-disable prettier/prettier */
 import { useState, useContext, useEffect } from 'react'
 import {  useHistory } from 'react-router-dom'
-// import PropTypes from 'prop-types'
 import FirebaseContext from '../context/firebase'
-import * as ROUTES from '../constants/routes'
 import useUser from '../hooks/use-user'
 import {
-    // getUserByUserId,
     doesUsernameExist
   } from '../services/firebase'
 import UserContext from '../context/user'

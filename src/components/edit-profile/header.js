@@ -1,16 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { useContext } from 'react'
 import {  useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-// import FirebaseContext from '../../context/firebase'
-import UserContext from '../../context/user'
-import useUser from '../../hooks/use-user'
-import * as ROUTES from '../../constants/routes'
 
 export default function Header({user}) {
-  // const { user: loggedInUser } = useContext(UserContext)
-  // const { user } = useUser(loggedInUser?.uid)
-//   const { firebase } = useContext(FirebaseContext)
   const history = useHistory()
 
   return (
@@ -24,12 +16,10 @@ export default function Header({user}) {
                   title="back"
                   onClick={() => {
                     history.push(`/p/${user.username}`)
-                    // history.goBack()
                   }}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter') {
                       history.push(`/p/${user.username}`)
-                      // history.goBack()
                     }
                   }}
                 >
