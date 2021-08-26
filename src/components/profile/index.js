@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useReducer, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Header from './header'
@@ -16,6 +17,7 @@ export default function Profile({ user }) {
   useEffect(() => {
     async function getProfileInfoAndPhotos() {
       const photos = await getUserPhotosByUserId(user.userId)
+      console.log(photos)
       dispatch({
         profile: user,
         photosCollection: photos,
@@ -27,13 +29,21 @@ export default function Profile({ user }) {
 
   return (
     <>
-      <Header
-        photosCount={photosCollection ? photosCollection.length : 0}
-        profile={profile}
-        followerCount={followerCount}
-        setFollowerCount={dispatch}
-      />
-      <Photos photos={photosCollection} />
+      {photosCollection!==null ?(
+        <>
+        {console.log(photosCollection.profilePictures)}
+        {/* {console.log(photosCollection)} */}
+          <Header
+            photos={photosCollection.profilePictures ? photosCollection.profilePictures : []}
+            photosCount={photosCollection.photosGallery ? photosCollection.photosGallery.length : 0}
+            profile={profile}
+            followerCount={followerCount}
+            setFollowerCount={dispatch}
+          />
+          <Photos photos={photosCollection.photosGallery} />
+        </>
+      ):null}
+      
     </>
   )
 }

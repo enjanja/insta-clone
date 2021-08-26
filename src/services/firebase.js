@@ -212,21 +212,47 @@ export async function getUserPhotosByUserIdForUser(userId, user) {
   return photosWithUserDetails
 }
 
-export async function getUserPhotosByUserId(userId) {
+export async function getProfilePhotos(userId) {
+  // [5,4,2] => following
   const result = await firebase
+    .firestore()
+    .collection('profilePictures')
+    .where('userId', '==', userId)
+    .get()
+
+  const userProfilePictures = result.docs.map((photo) => ({
+    ...photo.data(),
+    docId: photo.id
+  }))
+  return userProfilePictures
+}
+
+export async function getUserPhotosByUserId(userId) {
+  const result1 = await firebase
     .firestore()
     .collection('photos')
     .orderBy('dateCreated', 'desc')
     .where('userId', '==', userId)
     .get()
 
-  const photos = result.docs.map((photo) => ({
+  const photosGallery = result1.docs.map((photo) => ({
     ...photo.data(),
     docId: photo.id
   }))
 
+  const profilePictures = await getProfilePhotos(userId)
+
+  const photos = {
+    photosGallery,
+    profilePictures,
+  }
+  // console.log(photosGallery)
+  // console.log(profilePictures)
+
   return photos
 }
+
+
 
 export async function isUserFollowingProfile(loggedInUserUsername, profileUserId) {
   const result = await firebase

@@ -53,7 +53,7 @@ export default function UploadPicture({ user: loggedInUser }) {
                 <div className="p-5">
                     <form onSubmit={handleUpload}>
 
-                        <label className="photo-input" htmlFor="upload-photo">{file ? 'Ready to upload!' : '+ Select photo '}</label>
+                        <label className="photo-input" htmlFor="upload-photo">{file ? 'Ready to upload!' : '+ Select profile photo '}</label>
                         <input type="file" onChange={handleChange} id="upload-photo" />
                         <button
                             type="submit"

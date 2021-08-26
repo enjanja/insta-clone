@@ -15,6 +15,7 @@ export default function Photos({ photos }) {
           : photos.length > 0
           ? photos.map((photo) => (
               <div key={photo.docId} className="relative group gallery-container">
+                {/* {console.log(photo)} */}
                 <Link to={`/${photo.userId}/${photo.docId}`} aria-label="photo">
                   <img className="gallery-image" src={photo.imageSrc} alt={photo.caption} />
 

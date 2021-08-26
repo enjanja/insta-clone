@@ -10,10 +10,11 @@ import UserContext from '../../context/user'
 import { DEFAULT_IMAGE_PATH } from '../../constants/paths'
 import * as ROUTES from '../../constants/routes'
 
-export default function Header({
+export default function Header({ 
+  photos,
   photosCount,
   followerCount,
-  setFollowerCount,
+  setFollowerCount, 
   profile: {
     docId: profileDocId,
     userId: profileUserId,
@@ -21,10 +22,11 @@ export default function Header({
     followers,
     following,
     username: profileUsername
-  }
+  },
+
 }) {
 
-  // console.log(profileUserId)
+  // console.log(photosCount)
   const { user: loggedInUser } = useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid)
   const [isFollowingProfile, setIsFollowingProfile] = useState(null)
@@ -47,22 +49,26 @@ export default function Header({
     if (user?.username && profileUserId) {
       isLoggedInUserFollowingProfile()
     }
-    // console.log(profileUserId)
   }, [user?.username, profileUserId])
 
   return (
     <div>
-      <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg p-5">
-        <div className="container flex justify-center items-center">
-          {profileUsername ? (
+      <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg pl-3 pt-5 pb-5 pr-5 ">
+        <div className="container flex justify-center items-center profile-container">
+          { profileUsername ? (
+            <>
+            {/* {console.log(photos)} */}
+            
             <img
-              className="rounded-full h-auto w-auto p-1 flex"
+              className="h-auto w-auto max-h-28 min-h-20 min-w-32 flex profile-image bg-fixed object-cover"
               alt={`${fullName} profile picture`}
-              src={`/images/avatars/${profileUsername}.jpg`}
+              src={photos[0].imageSrc}
+              // src={`/images/avatars/${profileUsername}.jpg`}
               onError={(e) => {
                 e.target.src = DEFAULT_IMAGE_PATH
               }}
             />
+            </>
           ) : (
             <Skeleton circle height={150} width={150} count={1} />
           )}
@@ -145,6 +151,7 @@ export default function Header({
 }
 
 Header.propTypes = {
+  photos: PropTypes.array,
   photosCount: PropTypes.number.isRequired,
   followerCount: PropTypes.number.isRequired,
   setFollowerCount: PropTypes.func.isRequired,
