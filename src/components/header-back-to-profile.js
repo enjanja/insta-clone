@@ -22,11 +22,11 @@ export default function Header() {
                   type="button"
                   title="back"
                   onClick={() => {
-                    history.push(`/p/${user.username}`)
+                    history.goBack()
                   }}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter') {
-                      history.push(`/p/${user.username}`)
+                      history.goBack()
                     }
                   }}
                 >
