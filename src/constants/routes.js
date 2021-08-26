@@ -9,4 +9,6 @@ export const SINGLEPOST = '/:userId/:imgId'
 export const SEARCH = '/search'
 export const FOLLOWING = '/following'
 export const POST_UPLOAD = '/upload'
+export const PROFILE_UPLOAD = '/upload-profile-picture'
+
 
