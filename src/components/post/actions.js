@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { useState, useContext } from 'react'
-// import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import {  useHistory } from 'react-router-dom'
 import { storage } from '../../lib/firebase'
+// import { useHistory } from 'react-router-dom'
 import FirebaseContext from '../../context/firebase'
 import UserContext from '../../context/user'
 import useUser from '../../hooks/use-user'
-import {  useHistory } from 'react-router-dom'
 
 
-export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, username, imageSrc, imgPath }) {
+export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, username, imageSrc}) {
   const { user: loggedInUser } = useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid)
   const history = useHistory()
@@ -68,8 +68,6 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, us
 
     history.push(`/p/${username}`)
 
-
-    
   }
 
   return (
@@ -159,3 +157,14 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, us
 }
 
 
+Actions.propTypes = {
+    username: PropTypes.string.isRequired,
+    imageSrc: PropTypes.string.isRequired,
+    // imgPath:PropTypes.string,
+    likedPhoto: PropTypes.bool.isRequired,
+    docId: PropTypes.string.isRequired,
+    totalLikes: PropTypes.number.isRequired,
+    handleFocus: PropTypes.func.isRequired,
+}
+
+// docId, totalLikes, likedPhoto, handleFocus, username, imageSrc, imgPath

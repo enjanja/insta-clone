@@ -55,6 +55,20 @@ export async function getFollowedUsersById(followedUsersIds) {
   return profiles
 }
 
+export async function getUsersByUsername(username) {
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('username', '>=', username)
+    .orderBy('username', 'asc')
+    .get()
+
+  return result.docs.map((user) => ({
+    ...user.data(),
+    docId: user.id
+  }))
+}
+
 // check all conditions before limit results
 export async function getSuggestedProfiles(userId, following) {
   let query = firebase.firestore().collection('users')

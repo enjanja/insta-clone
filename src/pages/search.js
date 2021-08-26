@@ -3,7 +3,7 @@
 import {  useHistory, Link } from 'react-router-dom'
 import {  useState, useEffect } from 'react'
 // import PropTypes from 'prop-types'
-import { getUserByUsername } from '../services/firebase'
+import { getUserByUsername, getUsersByUsername } from '../services/firebase'
 import Header from '../components/header'
 import 'firebase/firestore'
 import Footer from '../components/footer'
@@ -12,21 +12,23 @@ import Footer from '../components/footer'
 export default function Search( ) {
 
     const [username, setUsername] = useState('')
-    const [user, setUser] = useState(null)
+    // const [user, setUser] = useState(null)
+    const [users, setUsers] = useState(null)
     const history = useHistory()
   
     useEffect(() => {
       async function checkUserExists() {
           if (username!==''){
 
-              const [user] = await getUserByUsername(username)
-              if (user?.userId) {
+              const [users] = await getUsersByUsername(username)
+              if (users?.userId) {
                 // console.log(user)
-                setUser(user)
+                setUsers(users)
+                console.log(users)
               }
           }
           else {
-            setUser(null)
+            setUsers(null)
           }
       }
   
@@ -48,27 +50,27 @@ export default function Search( ) {
                             onChange={({ target }) => setUsername(target.value)} 
                             value={username}
                         />
-                        {console.log(username)}
+                        {/* {console.log(username)} */}
                     </div>
 
             <div>
 
-                {username!=='' && user==null? (
+                {username!=='' && users==null? (
                     <div className="flex items-center px-5 py-2 justify-center">
                         <p className="text-center text-2xl mt-6">User not found</p>
                 </div>
                 ) : username!==''? (
-                    <Link to={`/p/${username}`}>
+                    <Link to={`/p/${users.username}`}>
                     <div className="flex items-center px-5 py-2">
                         <img
                         className="rounded-full w-16 flex mr-3"
-                        src={`/images/avatars/${username}.jpg`}
+                        src={`/images/avatars/${users.username}.jpg`}
                         alt=""
                         onError={(e) => {
                             e.target.src = `/images/avatars/default.png`
                         }}
                         />
-                        <p className="font-bold text-sm">{username}</p>
+                        <p className="font-bold text-sm">{users.username}</p>
                     </div>
                     </Link>
                 ):null}
