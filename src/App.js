@@ -19,6 +19,7 @@ const Search = lazy(() => import('./pages/search'))
 const Following = lazy(() => import('./pages/following'))
 const Followers = lazy(() => import('./pages/followers'))
 const PostUpload = lazy(() => import('./pages/post-upload'))
+const ProfilePictureUpload =  lazy(() => import('./pages/profile-picture-upload'))
 
 
 export default function App() {
@@ -47,6 +48,9 @@ export default function App() {
             <Route path={ROUTES.FOLLOWERS} component={Followers} />
             <ProtectedRoute user={user} path={ROUTES.POST_UPLOAD} exact>
               <PostUpload />
+            </ProtectedRoute>
+            <ProtectedRoute user={user} path={ROUTES.PROFILE_UPLOAD} exact>
+              <ProfilePictureUpload />
             </ProtectedRoute>
             <Route component={NotFound} />
           </Switch>

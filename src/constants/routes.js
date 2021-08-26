@@ -10,4 +10,6 @@ export const SEARCH = '/search'
 export const FOLLOWING = '/following'
 export const FOLLOWERS = '/followers'
 export const POST_UPLOAD = '/upload'
+export const PROFILE_UPLOAD = '/upload-profile-picture'
+
 

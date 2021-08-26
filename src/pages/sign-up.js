@@ -46,7 +46,7 @@ export default function SignUp() {
             dateCreated: Date.now()
           })
 
-        history.push(ROUTES.DASHBOARD)
+        history.push(ROUTES.PROFILE_UPLOAD)
       } catch (error) {
         setFullName('')
         setEmailAddress('')
