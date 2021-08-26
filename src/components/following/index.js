@@ -23,7 +23,7 @@ export default function Following({ ...profile }) {
 
   return  (
     <div>
-      {followingList!==null ? (
+      { followingList.length > 0 ? (
         <>
           <div className="p-4">
           {followingList.map((followed) => (
@@ -43,11 +43,14 @@ export default function Following({ ...profile }) {
               ))}
         </div>
         </>
-      ) : (<></>)
+      ) : (
+      <>
+        <div className="flex items-center px-5 py-2 justify-center">
+          <p className="text-center text-2xl mt-6">No such folk</p>
+        </div>
+      </>)
       }  
-      <div className="flex items-center px-5 py-2 justify-center">
-        <p className="text-center text-2xl mt-6">No such folk</p>
-      </div>
+      
       
 
     </div>

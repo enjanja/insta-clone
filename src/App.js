@@ -40,9 +40,6 @@ export default function App() {
             <ProtectedRoute user={user} path={ROUTES.SINGLEPOST} exact>
               <SinglePost />
             </ProtectedRoute>
-            {/* <ProtectedRoute user={user} path={ROUTES.FOLLOWING} exact>
-              <Following />
-            </ProtectedRoute> */}
             <Route path={ROUTES.SEARCH} component={Search} />
             <Route path={ROUTES.FOLLOWING} component={Following} />
             <Route path={ROUTES.FOLLOWERS} component={Followers} />

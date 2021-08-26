@@ -9,8 +9,9 @@ import { useLocation } from 'react-router-dom'
 // import * as ROUTES from '../constants/routes'
 
 import Footer from "../components/footer"
-import Header from "../components/header"
+// import Header from "../components/header"
 import FollowersList from "../components/followers"
+import Header from '../components/header-back-to-profile';
 
 export default function Following() {
 

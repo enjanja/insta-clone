@@ -24,8 +24,8 @@ export default function Followers({...profile }) {
   return (
     <div>
 
-  {followersList!==null ? (
-        <>
+  {followersList.length > 0 ? (
+    <>
     <div className="p-4">
       {followersList.map((followed) => (
         <Link to={`/p/${followed.username}`} key={followed.docId}>
@@ -42,12 +42,14 @@ export default function Followers({...profile }) {
           </div>
         </Link>
           ))}
-    </div>        </>
-      ) : (<></>)
-      }  
+    </div> 
+    </>
+      ) : (  
       <div className="flex items-center px-5 py-2 justify-center">
         <p className="text-center text-2xl mt-6">No such folk</p>
-      </div>
+      </div>)
+      }  
+    
 
     </div>
   )

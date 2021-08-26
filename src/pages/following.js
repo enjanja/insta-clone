@@ -3,14 +3,11 @@
 /* eslint-disable prettier/prettier */
 
 import { useLocation } from 'react-router-dom'
-// useParams, useHistory,
-// import { useState, useEffect } from 'react'
-// import { getUserByUsername } from '../services/firebase'
-// import * as ROUTES from '../constants/routes'
 
 import Footer from "../components/footer"
-import Header from "../components/header"
+// import Header from "../components/header"
 import FollowingList from "../components/following"
+import Header from '../components/header-back-to-profile';
 
 export default function Following() {
 
@@ -23,7 +20,6 @@ export default function Following() {
     <div>
         <Header />
         <div>
-            {/* {console.log("ovo je div")} */}
             <FollowingList {...profile}/>
         </div>
         <Footer />
