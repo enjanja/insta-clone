@@ -8,5 +8,6 @@ export const NOT_FOUND = '/not-found'
 export const SINGLEPOST = '/:userId/:imgId'
 export const SEARCH = '/search'
 export const FOLLOWING = '/following'
+export const FOLLOWERS = '/followers'
 export const POST_UPLOAD = '/upload'
 

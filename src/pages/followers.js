@@ -10,21 +10,18 @@ import { useLocation } from 'react-router-dom'
 
 import Footer from "../components/footer"
 import Header from "../components/header"
-import FollowingList from "../components/following"
+import FollowersList from "../components/followers"
 
 export default function Following() {
 
-    const location = useLocation()
-    const profile = location.state;
-    // console.log(profile)
-
+  const location = useLocation()
+  const profile = location.state;
 
   return profile ? (
     <div>
         <Header />
         <div>
-            {/* {console.log("ovo je div")} */}
-            <FollowingList {...profile}/>
+            <FollowersList {...profile}/>
         </div>
         <Footer />
     </div>

@@ -55,7 +55,7 @@ export default function Search( ) {
 
             <div>
 
-                {username!=='' && users==null? (
+                {username!=='' && users===null? (
                     <div className="flex items-center px-5 py-2 justify-center">
                         <p className="text-center text-2xl mt-6">User not found</p>
                 </div>

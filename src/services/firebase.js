@@ -55,6 +55,21 @@ export async function getFollowedUsersById(followedUsersIds) {
   return profiles
 }
 
+export async function getFollowersById(followersIds) {
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('userId', 'in', followersIds)
+    .get()
+  
+  const profiles = result.docs.map((user) => ({
+    ...user.data(),
+    docId: user.id
+  }))
+  
+  return profiles
+}
+
 export async function getUsersByUsername(username) {
   const result = await firebase
     .firestore()

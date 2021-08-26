@@ -23,6 +23,8 @@ export default function Header({
     username: profileUsername
   }
 }) {
+
+  // console.log(profileUserId)
   const { user: loggedInUser } = useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid)
   const [isFollowingProfile, setIsFollowingProfile] = useState(null)
@@ -45,6 +47,7 @@ export default function Header({
     if (user?.username && profileUserId) {
       isLoggedInUserFollowingProfile()
     }
+    // console.log(profileUserId)
   }, [user?.username, profileUserId])
 
   return (
@@ -100,17 +103,18 @@ export default function Header({
                   <span className="font-bold">{photosCount}</span> photos
                 </p>
                 <p className="mr-5">
-                  <span className="font-bold">{followerCount}</span>
-                  {` `}
-                  {followerCount === 1 ? `follower` : `followers`}
+                  <Link to={{pathname: ROUTES.FOLLOWERS, state: {followers, profileUserId} }}>
+                    <span className="font-bold">{followerCount}</span>
+                    {` `}
+                    {followerCount === 1 ? `follower` : `followers`}
+                  </Link>
                 </p>
                 {/* ovde sad saljemo username u following */}
                 <p className="mr-5">
-                  <Link to={{pathname: ROUTES.FOLLOWING, state: user}}>
+                  <Link to={{pathname: ROUTES.FOLLOWING , state: {following, profileUserId}}  }>
                     <span className="font-bold">{following?.length}</span> following
                   </Link>
                 </p>
-                {/* {console.log(following)} */}
               </>
             )}
           </div>
