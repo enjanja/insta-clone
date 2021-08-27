@@ -6,13 +6,13 @@ import UserContext from '../context/user'
 import * as ROUTES from '../constants/routes'
 import { DEFAULT_IMAGE_PATH } from '../constants/paths'
 import useUser from '../hooks/use-user'
+// import useProfilePhotos from '../hooks/use-profile-photos'
 
 export default function Footer() {
   const { user: loggedInUser } = useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid)
   // const { firebase } = useContext(FirebaseContext)
-  // const history = useHistory()
-
+  // const history = useHistory
 
   return (
     <footer className="home-footer h-16 bg-white border-t border-gray-primary">
@@ -75,14 +75,28 @@ export default function Footer() {
                 {user && (
                   <div className="flex items-center cursor-pointer">
                     <Link to={`/p/${user?.username}`}>
-                      <img
+                      {/* <img
                         className="rounded-full h-8 w-8 flex"
                         src={`/images/avatars/${user?.username}.jpg`}
                         alt={`${user?.username} profile`}
                         onError={(e) => {
                           e.target.src = DEFAULT_IMAGE_PATH
                         }}
-                      />
+                      /> */}
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        className="w-8 flex text-black-light cursor-pointer" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
+                        />
+                      </svg>
                     </Link>
                   </div>
                 )}

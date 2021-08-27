@@ -227,6 +227,41 @@ export async function getProfilePhotos(userId) {
   return userProfilePictures
 }
 
+export async function getProfilePhotosByUsername(username) {
+
+  let user
+  let userProfilePictures 
+
+  if(username!==undefined){
+    user = await getUserByUsername(username)
+
+    const {userId} = user[0]
+
+    if(userId){
+      const result2 = await firebase
+      .firestore()
+      .collection('profilePictures')
+      .where('userId', '==', userId)
+      .get()
+
+      userProfilePictures = result2.docs.map((photo) => ({
+        ...photo.data(),
+        docId: photo.id
+      }))
+    }
+  }
+
+  
+    const photos = {
+    user,
+    userProfilePictures
+  }
+
+  // console.log(userProfilePictures)
+
+  return photos
+}
+
 export async function getUserPhotosByUserId(userId) {
   const result1 = await firebase
     .firestore()

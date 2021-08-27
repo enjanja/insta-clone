@@ -13,6 +13,7 @@ export default function Timeline({ username }) {
 
   return (
     <div className="container col-span-2 mb-16">
+      {/* {console.log(user.userId)} */}
       {!photos ? (
         <Skeleton count={4} width={640} height={500} className="mb-5" />
       ) : (

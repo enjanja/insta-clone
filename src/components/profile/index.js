@@ -17,7 +17,7 @@ export default function Profile({ user }) {
   useEffect(() => {
     async function getProfileInfoAndPhotos() {
       const photos = await getUserPhotosByUserId(user.userId)
-      console.log(photos)
+      // console.log(photos)
       dispatch({
         profile: user,
         photosCollection: photos,
@@ -31,8 +31,6 @@ export default function Profile({ user }) {
     <>
       {photosCollection!==null ?(
         <>
-        {console.log(photosCollection.profilePictures)}
-        {/* {console.log(photosCollection)} */}
           <Header
             photos={photosCollection.profilePictures ? photosCollection.profilePictures : []}
             photosCount={photosCollection.photosGallery ? photosCollection.photosGallery.length : 0}

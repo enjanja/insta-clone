@@ -55,10 +55,8 @@ export default function Header({
     <div>
       <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg pl-3 pt-5 pb-5 pr-5 ">
         <div className="container flex justify-center items-center profile-container">
-          { profileUsername ? (
+          { profileUsername && photos.length>0 ? (
             <>
-            {/* {console.log(photos)} */}
-            
             <img
               className="h-auto w-auto max-h-28 min-h-20 min-w-32 flex profile-image bg-fixed object-cover"
               alt={`${fullName} profile picture`}
@@ -70,7 +68,13 @@ export default function Header({
             />
             </>
           ) : (
-            <Skeleton circle height={150} width={150} count={1} />
+            <>
+            <img
+              className="h-auto w-auto max-h-28 min-h-20 min-w-32 flex profile-image bg-fixed object-cover"
+              alt={`${fullName} profile picture`}
+              src={DEFAULT_IMAGE_PATH}
+            />
+            </>
           )}
         </div>
         <div className="flex items-center justify-center flex-col col-span-2">

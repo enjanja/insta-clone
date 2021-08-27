@@ -81,6 +81,24 @@
  .profile-image{
     height: 100px;
     width: 100px;
+    object-fit: cover;
+ }
+ 
+ 
+.post-profile-container img{
     border-radius: 50%;
+}
+ .post-profile-image{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+ }
+
+ /* .post-profile-container img{
+    border-radius: 50%;
+} */
+ .suggestion-profile-image{
+    height: 60px;
+    width: 60px;
     object-fit: cover;
  }

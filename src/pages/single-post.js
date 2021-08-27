@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // import { useEffect } from 'react'
 import { useEffect, useReducer, useContext } from 'react'
 import { useParams } from 'react-router-dom'
@@ -35,8 +36,6 @@ export default function SinglePost({ user }) {
   }, [userId])
 
   return (
-    // <LoggedInUserContext.Provider value={{ user, setActiveUser }}>
-
     <div className="bg-gray-background ">
       <Header />
       <div className="grid grid-cols-1">

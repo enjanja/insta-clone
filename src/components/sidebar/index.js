@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import User from './user'
 import Suggestions from './suggestions'
 import LoggedInUserContext from '../../context/logged-in-user'
@@ -11,7 +11,7 @@ export default function Sidebar() {
 
   return (
     <div className="p-4">
-      <User username={username} fullName={fullName} />
+      <User username={username} fullName={fullName} userId={userId}/>
       <Suggestions userId={userId} following={following} loggedInUserDocId={docId} />
     </div>
   )
