@@ -56,7 +56,6 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
         <p className="font-bold text-gray-base">Suggestions for you</p>
       </div>
       <div className="mt-4 grid">
-        {/* ovde bi msm trebalo da se stavi slajder, da obuhvati ovaj profiles.map */}
         <Carousel
           swipeable
           draggable

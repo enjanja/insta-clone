@@ -102,3 +102,9 @@
     width: 60px;
     object-fit: cover;
  }
+
+ .dashboard-profile-image{
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+ }

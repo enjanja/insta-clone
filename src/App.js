@@ -7,7 +7,6 @@ import UserContext from './context/user'
 import useAuthListener from './hooks/use-auth-listener'
 
 import ProtectedRoute from './helpers/protected-route'
-import Header from './components/header'
 
 const Login = lazy(() => import('./pages/login'))
 const SignUp = lazy(() => import('./pages/sign-up'))

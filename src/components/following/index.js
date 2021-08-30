@@ -2,14 +2,10 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getFollowedUsersById} from '../../services/firebase'
-// import useProfilePhotos from '../../hooks/use-profile-photos's
 
 export default function Following({ ...profile }) {
 
   const {following} = profile
-  // const { profilePhotos } = useProfilePhotos(username)
-  // // console.log(profilePhotos)
-  // let profilePhoto
 
   const [followingList, setFollowing] = useState([])
 

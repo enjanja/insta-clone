@@ -17,7 +17,6 @@ export default function Profile({ user }) {
   useEffect(() => {
     async function getProfileInfoAndPhotos() {
       const photos = await getUserPhotosByUserId(user.userId)
-      // console.log(photos)
       dispatch({
         profile: user,
         photosCollection: photos,

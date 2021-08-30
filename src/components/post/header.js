@@ -11,8 +11,6 @@ export default function Header({ username, profilePhotos }) {
   if(profilePhotos.userProfilePictures !== undefined){
     profilePhoto = profilePhotos.userProfilePictures[0]
    }
-
-  // console.log(profilePhoto)
   
   return (
     <div className="flex border-b border-gray-primary h-4 p-4 py-8">

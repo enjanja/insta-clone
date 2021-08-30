@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 // import FirebaseContext from '../context/firebase'
 import UserContext from '../context/user'
 import * as ROUTES from '../constants/routes'
-import { DEFAULT_IMAGE_PATH } from '../constants/paths'
+// import { DEFAULT_IMAGE_PATH } from '../constants/paths'
 import useUser from '../hooks/use-user'
 // import useProfilePhotos from '../hooks/use-profile-photos'
 

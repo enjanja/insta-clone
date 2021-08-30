@@ -26,7 +26,6 @@ export default function Header({
 
 }) {
 
-  // console.log(photosCount)
   const { user: loggedInUser } = useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid)
   const [isFollowingProfile, setIsFollowingProfile] = useState(null)
@@ -61,7 +60,6 @@ export default function Header({
               className="h-auto w-auto max-h-28 min-h-20 min-w-32 flex profile-image bg-fixed object-cover"
               alt={`${fullName} profile picture`}
               src={photos[0].imageSrc}
-              // src={`/images/avatars/${profileUsername}.jpg`}
               onError={(e) => {
                 e.target.src = DEFAULT_IMAGE_PATH
               }}
