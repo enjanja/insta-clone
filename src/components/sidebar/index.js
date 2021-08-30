@@ -10,7 +10,7 @@ export default function Sidebar() {
     useContext(LoggedInUserContext)
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-screen">
       <User username={username} fullName={fullName} />
       <Suggestions userId={userId} following={following} loggedInUserDocId={docId} />
     </div>

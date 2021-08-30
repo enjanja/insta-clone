@@ -61,9 +61,9 @@ export default function Search( ) {
                 </div>
                 ) : username!==''? (
                     <Link to={`/p/${users.username}`}>
-                    <div className="flex items-center px-5 py-2">
+                    <div className="flex items-center px-5 py-2 profile-container">
                         <img
-                        className="rounded-full w-16 flex mr-3"
+                        className="rounded-full w-16 flex mr-3 profile-image"
                         src={`/images/avatars/${users.username}.jpg`}
                         alt=""
                         onError={(e) => {

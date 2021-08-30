@@ -29,9 +29,9 @@ export default function Followers({...profile }) {
     <div className="p-4">
       {followersList.map((followed) => (
         <Link to={`/p/${followed.username}`} key={followed.docId}>
-            <div className="flex items-center px-5 py-2">
+            <div className="flex items-center px-5 py-2 profile-container img">
               <img
-              className="rounded-full w-16 flex mr-3"
+              className="rounded-full w-16 flex mr-3 profile-image"
               src={`/images/avatars/${followed.username}.jpg`}
               alt=""
               onError={(e) => {
