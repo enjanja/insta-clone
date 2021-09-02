@@ -33,11 +33,11 @@ export default function Upload({ user: loggedInUser }) {
   function handleUpload(e) {
     e.preventDefault()
     setLoading(true)
-    console.log(loading)
+    // console.log(loading)
     const uid = uuidv4()
     const ref = storage.ref(`/images/${uid}`)
 
-    console.log(ref)
+    // console.log(ref)
     const uploadTask = ref.put(file)
 
     uploadTask.on(
