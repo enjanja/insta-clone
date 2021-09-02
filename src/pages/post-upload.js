@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
 import {  useState } from 'react'
+import { css } from '@emotion/react';
+import ClipLoader from 'react-spinners/ClipLoader';
 import PropTypes from 'prop-types'
 import {  useHistory } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
@@ -14,8 +16,15 @@ export default function Upload({ user: loggedInUser }) {
   const { user, setActiveUser } = useUser(loggedInUser.uid)
   const [file, setFile] = useState(null)
   const [url, setURL] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [color, setColor] = useState('#ffffff');
   const history = useHistory()
   const [caption, setCaption] = useState('')
+  const override = css`
+  display: block;
+  margin: 0px auto;
+  border-color: white;
+`;
 
   function handleChange(e) {
     setFile(e.target.files[0])
@@ -23,6 +32,8 @@ export default function Upload({ user: loggedInUser }) {
 
   function handleUpload(e) {
     e.preventDefault()
+    setLoading(true)
+    console.log(loading)
     const uid = uuidv4()
     const ref = storage.ref(`/images/${uid}`)
 
@@ -46,7 +57,8 @@ export default function Upload({ user: loggedInUser }) {
             comments: [],
             likes: [],
           })
-        }).then(history.push(``))
+        },
+        setLoading(false)).then( history.push(``))
       },
     )
   }
@@ -55,7 +67,7 @@ export default function Upload({ user: loggedInUser }) {
     <LoggedInUserContext.Provider value={{ user, setActiveUser }}>
       <div className="bg-gray-background">
         <Header />
-        <div className="p-5">
+        <div className="p-5 sweet-loading">
           <form onSubmit={handleUpload}>
             
             <label className="photo-input" htmlFor="upload-photo">{ file?'Ready to upload!':'+ Select photo '}</label>
@@ -74,8 +86,10 @@ export default function Upload({ user: loggedInUser }) {
               disabled={!file}
             >
               Upload
+              <ClipLoader color={color} loading={loading} css={override} size={20} />
             </button>
           </form>
+         
         </div>
 
         <Footer />
