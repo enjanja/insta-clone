@@ -58,7 +58,7 @@ export default function Upload({ user: loggedInUser }) {
             likes: [],
           })
         },
-        setLoading(false)).then( history.push(``))
+        setLoading(false)).then( history.push(`/p/${user.username}`))
       },
     )
   }
@@ -85,8 +85,11 @@ export default function Upload({ user: loggedInUser }) {
               className="follow-btn bg-blue-medium font-bold text-sm rounded text-white w-20 h-8 mr-4"
               disabled={!file}
             >
-              Upload
-              <ClipLoader color={color} loading={loading} css={override} size={20} />
+              {loading? (
+                <ClipLoader color={color} loading={loading} css={override} size={20} />
+              ):(<>Upload</> )}
+              
+              
             </button>
           </form>
          
